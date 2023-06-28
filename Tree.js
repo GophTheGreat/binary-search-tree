@@ -35,10 +35,19 @@ class Tree {
   }
 
   insert(value){
-    let node = new Node(value);
-  }
+    let node = root;
 
-}
+    //check 
+    while(node.data <= value){
+      if(node.left !== null){
+        node.left = new myNode(value);
+      }
+      else{
+        
+      }
+    }
+
+ }
 
 
 
