@@ -35,18 +35,30 @@ class Tree {
   }
 
   insert(value){
-    let node = root;
+    let cur = this.root;
 
-    //check 
-    while(node.data <= value){
-      if(node.left !== null){
-        node.left = new myNode(value);
-      }
-      else{
-        
-      }
+    //if tree is empty, make a root for it.
+    if (cur === null){
+      this.root = new myNode(value);
     }
 
+    //compare value to root
+    while(cur.value <= value){
+      if(cur.left !== null){
+        cur = cur.left;
+      }
+      else{
+        cur.left = new myNode(value);
+      }
+    }
+    while(cur.value >= value){
+      if(cur.right !== null){
+        cur = cur.right;
+      }
+      else{
+        cur.right = new myNode(value);
+      }
+    }
  }
 
 
