@@ -36,3 +36,8 @@ prettyPrint(treeA.root)
 console.log("TEST INORDER")
 let inorderArray = treeA.inorder(treeA.root);
 console.log(inorderArray);
+
+//test preorder
+console.log("TEST PREORDER")
+let preorderArray = treeA.inorder(treeA.root);
+console.log(preorderArray);

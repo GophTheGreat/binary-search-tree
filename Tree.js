@@ -4,6 +4,8 @@ class Tree {
   constructor(array){
     this.root = this.buildTree(array, 0, array.length - 1);
     this.inorderArray = [];
+    this.preorderArray = [];
+    this.postorderArray = [];
   }
 
   //builds the tree
@@ -193,6 +195,64 @@ class Tree {
     }
     
     return this.inorderArray;
+  }
+
+  preorder(node, func){
+    let cur = node;
+
+    //If no node, return nothing
+    if(!node){
+      return [];
+    }
+
+    //Report or perform a function on the current node
+    if(func){
+      func(cur)
+    }
+    else{
+      this.preorderArray.push(cur.data)
+    }
+
+    //if there's a left, traverse the left
+    if(cur.left){
+      this.inorder(cur.left)
+    }
+
+    //if there's a right, traverse the right
+    if(cur.right){
+      this.inorder(cur.right)
+    }
+    
+    return this.preorderArray;
+  }
+
+  postorder(node, func){
+    let cur = node;
+
+    //If no node, return nothing
+    if(!node){
+      return [];
+    }
+    
+    //if there's a left, traverse the left
+    if(cur.left){
+      this.inorder(cur.left)
+    }
+
+    //if there's a right, traverse the right
+    if(cur.right){
+      this.inorder(cur.right)
+    }
+    
+    //Report or perform a function on the current node
+    if(func){
+      func(cur)
+    }
+    else{
+      this.postorderArray.push(cur.data)
+    }
+
+    return this.postorderArray;
   }
 
 
