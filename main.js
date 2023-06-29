@@ -39,5 +39,10 @@ console.log(inorderArray);
 
 //test preorder
 console.log("TEST PREORDER")
-let preorderArray = treeA.inorder(treeA.root);
+let preorderArray = treeA.preorder(treeA.root);
 console.log(preorderArray);
+
+//test postorder
+console.log("TEST POSTORDER")
+let postorderArray = treeA.postorder(treeA.root);
+console.log(postorderArray);

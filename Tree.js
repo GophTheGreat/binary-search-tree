@@ -180,11 +180,11 @@ class Tree {
     if(cur.left){
       this.inorder(cur.left)
     }
+
     //Report or perform a function on the current node
     if(func){
       func(cur)
     }
-
     else{
       this.inorderArray.push(cur.data)
     }
@@ -215,12 +215,12 @@ class Tree {
 
     //if there's a left, traverse the left
     if(cur.left){
-      this.inorder(cur.left)
+      this.preorder(cur.left)
     }
 
     //if there's a right, traverse the right
     if(cur.right){
-      this.inorder(cur.right)
+      this.preorder(cur.right)
     }
     
     return this.preorderArray;
@@ -236,12 +236,12 @@ class Tree {
     
     //if there's a left, traverse the left
     if(cur.left){
-      this.inorder(cur.left)
+      this.postorder(cur.left)
     }
 
     //if there's a right, traverse the right
     if(cur.right){
-      this.inorder(cur.right)
+      this.postorder(cur.right)
     }
     
     //Report or perform a function on the current node
