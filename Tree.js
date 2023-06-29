@@ -34,32 +34,133 @@ class Tree {
     return node;
   }
 
+  //Inserts a value into the binary search tree
   insert(value){
     let cur = this.root;
 
+    console.log(cur.data);
     //if tree is empty, make a root for it.
     if (cur === null){
       this.root = new myNode(value);
     }
 
-    //compare value to root
-    while(cur.value <= value){
-      if(cur.left !== null){
-        cur = cur.left;
+    while(cur !== null){;
+      //if value < cur.data, walk down the left subtree'
+      console.log(`Comparing ${value} to ${cur.data}`)
+      if(value <= cur.data){
+        if(cur.left !== null){
+          console.log(`Walking left`)
+          cur = cur.left;
+        }
+        //if there is no left subtree, insert the node
+        else{
+          console.log(`Inserting left`)
+          cur.left = new myNode(value);
+          break;
+        }
       }
-      else{
-        cur.left = new myNode(value);
+
+      //if value > cur.data, walk down the right subree
+      if(value > cur.data){
+        if(cur.right !== null){
+          console.log(`Walking right`)
+          cur = cur.right;
+        }
+        //if there is no right subtree, insert the node
+        else{
+          console.log(`Inserting right`)
+          cur.right = new myNode(value);
+          break;
+        }
       }
     }
-    while(cur.value >= value){
-      if(cur.right !== null){
-        cur = cur.right;
+  }
+
+  //deletes a node in the tree
+  delete(value){
+    let cur = this.root;
+    let prev = cur;
+    let lastMove;
+
+    console.log(cur.data);
+    //if tree is empty, return
+    if (cur === null){
+      return;
+    }
+
+    while(cur !== null){
+      //store the previous node as a reference for when we have to stitch up the children
+      prev = cur;
+
+      //if value < cur.value, walk down the left subtree
+      console.log(`Comparing ${value} to ${cur.data}`)
+      if(value < cur.data){
+        if(cur.left !== null){
+          console.log(`Walking left`)
+          cur = cur.left;
+          lastMove = 'left'
+        }
       }
-      else{
-        cur.right = new myNode(value);
+
+      //if value > cur.data, walk down the right subree
+      if(value > cur.data){
+        if(cur.right !== null){
+          console.log(`Walking right`)
+          cur = cur.right;
+          lastMove = 'right'
+        }
+      }
+      //if value is equal, take up the right subtree and replace cur.
+      //if no right subree, then take the left subtree
+      if(value === cur.data){
+        if(cur.right !== null){
+          prev[lastMove] = cur.right;
+        }
       }
     }
- }
+  }
+
+  //Searches for a value and returns the node or false;
+  find(value){
+    let cur = this.root;
+
+    if (cur === null){
+      return false;
+    }
+
+    while(cur !== null){
+      //if value < cur.data, walk down the left subtree'
+      console.log(`Comparing ${value} to ${cur.data}`)
+      if(value < cur.data){
+        if(cur.left !== null){
+          console.log(`Walking left`)
+          cur = cur.left;
+        }
+        //if there is no left subtree, return false
+        else{
+          return false;
+        }
+      }
+
+      //if value > cur.data, walk down the right subree
+      if(value > cur.data){
+        if(cur.right !== null){
+          console.log(`Walking right`)
+          cur = cur.right;
+        }
+        //if there is no right subtree, insert the node
+        else{
+          return false
+        }
+      }
+      //if value is equal, return the node
+      //if no right subree, then take the left subtree
+      if(value === cur.data){
+        return cur;
+      }
+    }
+  }
+}
 
 
 
