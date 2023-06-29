@@ -31,3 +31,8 @@ treeA.insert(7);
 console.log("TEST INSERT(3333)")
 treeA.insert(3333);
 prettyPrint(treeA.root)
+
+//test inorder
+console.log("TEST INORDER")
+let inorderArray = treeA.inorder(treeA.root);
+console.log(inorderArray);

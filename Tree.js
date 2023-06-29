@@ -3,9 +3,10 @@ const myNode = require('./Node.js');
 class Tree {
   constructor(array){
     this.root = this.buildTree(array, 0, array.length - 1);
+    this.inorderArray = [];
   }
 
-
+  //builds the tree
   buildTree(array, start, end){
 
     //first sort the array
@@ -34,7 +35,7 @@ class Tree {
     return node;
   }
 
-  //Inserts a value into the binary search tree
+  //inserts a value into the binary search tree
   insert(value){
     let cur = this.root;
 
@@ -120,7 +121,7 @@ class Tree {
     }
   }
 
-  //Searches for a value and returns the node or false;
+  //searches for a value and returns the node or false;
   find(value){
     let cur = this.root;
 
@@ -160,6 +161,42 @@ class Tree {
       }
     }
   }
+
+  levelOrder(order){
+
+  }
+
+  inorder(node, func){
+    let cur = node;
+
+    //If no node, return nothing
+    if(!node){
+      return [];
+    }
+
+    //if there's a left, traverse the left
+    if(cur.left){
+      this.inorder(cur.left)
+    }
+    //Report or perform a function on the current node
+    if(func){
+      func(cur)
+    }
+
+    else{
+      this.inorderArray.push(cur.data)
+    }
+
+    //if there's a right, traverse the right
+    if(cur.right){
+      this.inorder(cur.right)
+    }
+    
+    return this.inorderArray;
+  }
+
+
+
 }
 
 
