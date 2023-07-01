@@ -165,6 +165,7 @@ class Tree {
     }
   }
 
+  //traverses the tree in a breadth-first fashion
   levelOrder(order, func){
     this.levelorderArray = [];
     let queue = [];
@@ -313,9 +314,21 @@ class Tree {
     return rootHeight - nodeHeight;
   }
 
-  //returns whether the tree is balanced (height of both trees differs by less than 1)
+  //returns whether the tree is balanced (height of both sides of the tree differs by less than 1)
   isBalanced(){
-    
+    let leftheight = height(this.root.left);
+    let rightheight = height(this.root.right);
+    if(Math.abs(leftheight - rightheight) > 1){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+
+  //rebalances the tree
+  rebalance(){
+    this.buildtree(this.inorder(this.root));
   }
 }
 
