@@ -168,8 +168,11 @@ class Tree {
 
   }
 
+  //traverses the tree in inorder fashion
   inorder(node, func){
     let cur = node;
+
+    this.inorderArray = [];
 
     //If no node, return nothing
     if(!node){
@@ -197,9 +200,12 @@ class Tree {
     return this.inorderArray;
   }
 
+  //traverses the tree in preorder fashion
   preorder(node, func){
     let cur = node;
 
+    this.preorderArray = [];
+    
     //If no node, return nothing
     if(!node){
       return [];
@@ -226,9 +232,12 @@ class Tree {
     return this.preorderArray;
   }
 
+  //traverses the tree in postorder fashion
   postorder(node, func){
     let cur = node;
 
+    this.postorderArray = [];
+    
     //If no node, return nothing
     if(!node){
       return [];
@@ -255,6 +264,27 @@ class Tree {
     return this.postorderArray;
   }
 
+
+
+//Update height of the current node by adding 1 to the maximum of the two heights obtained in the previous step. Store the height in a variable, say ans.
+//If the current node is equal to the given node K, print the value of ans as the required answer.
+  
+  //returns the height of the target node
+  height(node){
+    
+    let height = 0;
+    
+    // If the tree is empty, print -1.
+    if(tree.root === null){
+      return -1;
+    }
+    //Otherwise, perform the following steps:
+    //Calculate the height of the left subtree recursively.
+    //Calculate the height of the right subtree recursively.
+    height = Math.max(height(node.left), height(node.right)) + 1;
+    
+    return height;
+  }
 
 
 }
