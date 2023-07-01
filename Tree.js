@@ -6,6 +6,7 @@ class Tree {
     this.inorderArray = [];
     this.preorderArray = [];
     this.postorderArray = [];
+    this.levelorderArray = [];
   }
 
   //builds the tree
@@ -164,8 +165,25 @@ class Tree {
     }
   }
 
-  levelOrder(order){
-
+  levelOrder(order, func){
+    this.levelorderArray = [];
+    let queue = [];
+    let cur = this.root;
+    queue.push(cur);
+    //while the queue is not empty, insert all the children of the first node into the queue
+    while(queue.length > 0){
+      if(queue[0].left){queue.push(queue.left}
+      if(queue[0].right){queue.push(queue.right)}
+      
+      //also perform the function action if there is one
+      //else push the node to an array
+      if(func){func(queue[0])}
+      else{levelorderArray.push(queue[0])}
+      
+      //finally remove the first element of the queue
+      queue.splice(0,1);
+    }
+    if(!func){return levelorderArray;}
   }
 
   //traverses the tree in inorder fashion
@@ -263,11 +281,6 @@ class Tree {
 
     return this.postorderArray;
   }
-
-
-
-//Update height of the current node by adding 1 to the maximum of the two heights obtained in the previous step. Store the height in a variable, say ans.
-//If the current node is equal to the given node K, print the value of ans as the required answer.
   
   //returns the height of the target node
   height(node){
@@ -278,15 +291,32 @@ class Tree {
     if(tree.root === null){
       return -1;
     }
-    //Otherwise, perform the following steps:
-    //Calculate the height of the left subtree recursively.
-    //Calculate the height of the right subtree recursively.
+
+    //calculate the heights of the left and right subtrees of the node
+    //then add 1. That is your height.
     height = Math.max(height(node.left), height(node.right)) + 1;
     
     return height;
   }
 
+  //returns the depth of the target node
+  depth(node){
+    //If the node is our root, return depth of 0;
+    if(node === this.root){
+      return 0;
+    }
+    
+    //else calculate height of the root and height of the node, then subtract rootHeight - nodeHeight
+    let rootHeight = height(this.root);
+    let nodeHeight = height(node);
 
+    return rootHeight - nodeHeight;
+  }
+
+  //returns whether the tree is balanced (height of both trees differs by less than 1)
+  isBalanced(){
+    
+  }
 }
 
 
