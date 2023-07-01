@@ -3,31 +3,27 @@ const myNode = require('./Node.js');
 class Tree {
   constructor(array){
     this.root = this.buildTree(array, 0, array.length - 1);
-    this.inorderArray = [];
-    this.preorderArray = [];
-    this.postorderArray = [];
     this.levelorderArray = [];
   }
 
-  //builds the tree
+  //builds the tree assuming a sorted array
   buildTree(array, start, end){
 
-    //first sort the array
-    //array.sort(ascending) //this would stack overflow so I sort it outside of here now
+    if(start === undefined){
+      console.log(`setting start`)
+      start = 0;
+    }
+    if(end === undefined){
+      end = array.length - 1;
+    }
+
     if(start > end){
-      console.log(`Root case reached`)
       return null;
     }
   
     //then find the middle point and make it the root
     let middle = Math.floor((start + end) / 2);
     let node = new myNode(array[middle]);
-  
-    console.log(`~~~~~~~~~~`)
-    console.log(start)
-    console.log(middle)
-    console.log(end)
-    console.log(`$$$$$$$$$$$$$$`)
   
     //recursively build the left subtree from the start to the mid of the array
     node.left = this.buildTree(array, start, middle - 1);
@@ -42,7 +38,6 @@ class Tree {
   insert(value){
     let cur = this.root;
 
-    console.log(cur.data);
     //if tree is empty, make a root for it.
     if (cur === null){
       this.root = new myNode(value);
@@ -173,8 +168,8 @@ class Tree {
     queue.push(cur);
     //while the queue is not empty, insert all the children of the first node into the queue
     while(queue.length > 0){
-      if(queue[0].left){queue.push(queue.left}
-      if(queue[0].right){queue.push(queue.right)}
+      if(queue[0].left){queue.push(queue[0].left)}
+      if(queue[0].right){queue.push(queue[0].right)}
       
       //also perform the function action if there is one
       //else push the node to an array
@@ -188,10 +183,12 @@ class Tree {
   }
 
   //traverses the tree in inorder fashion
-  inorder(node, func){
+  inorder(node, func, array){
     let cur = node;
 
-    this.inorderArray = [];
+    if(!array){
+      array = [];
+    }
 
     //If no node, return nothing
     if(!node){
@@ -200,7 +197,7 @@ class Tree {
 
     //if there's a left, traverse the left
     if(cur.left){
-      this.inorder(cur.left)
+      this.inorder(cur.left, undefined, array)
     }
 
     //Report or perform a function on the current node
@@ -208,23 +205,25 @@ class Tree {
       func(cur)
     }
     else{
-      this.inorderArray.push(cur.data)
+      array.push(cur.data)
     }
 
     //if there's a right, traverse the right
     if(cur.right){
-      this.inorder(cur.right)
+      this.inorder(cur.right, undefined, array)
     }
     
-    return this.inorderArray;
+    return array;
   }
 
   //traverses the tree in preorder fashion
-  preorder(node, func){
+  preorder(node, func, array){
     let cur = node;
-
-    this.preorderArray = [];
     
+    if(!array){
+      array = [];
+    }
+
     //If no node, return nothing
     if(!node){
       return [];
@@ -235,27 +234,29 @@ class Tree {
       func(cur)
     }
     else{
-      this.preorderArray.push(cur.data)
+      array.push(cur.data)
     }
 
     //if there's a left, traverse the left
     if(cur.left){
-      this.preorder(cur.left)
+      this.preorder(cur.left, undefined, array)
     }
 
     //if there's a right, traverse the right
     if(cur.right){
-      this.preorder(cur.right)
+      this.preorder(cur.right, undefined, array)
     }
     
-    return this.preorderArray;
+    return array;
   }
 
   //traverses the tree in postorder fashion
-  postorder(node, func){
+  postorder(node, func, array){
     let cur = node;
 
-    this.postorderArray = [];
+    if(!array){
+      array = [];
+    }
     
     //If no node, return nothing
     if(!node){
@@ -264,12 +265,12 @@ class Tree {
     
     //if there's a left, traverse the left
     if(cur.left){
-      this.postorder(cur.left)
+      this.postorder(cur.left, undefined, array)
     }
 
     //if there's a right, traverse the right
     if(cur.right){
-      this.postorder(cur.right)
+      this.postorder(cur.right, undefined, array)
     }
     
     //Report or perform a function on the current node
@@ -277,10 +278,10 @@ class Tree {
       func(cur)
     }
     else{
-      this.postorderArray.push(cur.data)
+      array.push(cur.data)
     }
 
-    return this.postorderArray;
+    return array;
   }
   
   //returns the height of the target node
@@ -289,13 +290,13 @@ class Tree {
     let height = 0;
     
     // If the tree is empty, print -1.
-    if(tree.root === null){
+    if(node === null){
       return -1;
     }
 
     //calculate the heights of the left and right subtrees of the node
     //then add 1. That is your height.
-    height = Math.max(height(node.left), height(node.right)) + 1;
+    height = Math.max(this.height(node.left), this.height(node.right)) + 1;
     
     return height;
   }
@@ -316,8 +317,8 @@ class Tree {
 
   //returns whether the tree is balanced (height of both sides of the tree differs by less than 1)
   isBalanced(){
-    let leftheight = height(this.root.left);
-    let rightheight = height(this.root.right);
+    let leftheight = this.height(this.root.left);
+    let rightheight = this.height(this.root.right);
     if(Math.abs(leftheight - rightheight) > 1){
       return false;
     }
@@ -328,7 +329,7 @@ class Tree {
 
   //rebalances the tree
   rebalance(){
-    this.buildtree(this.inorder(this.root));
+    this.root = this.buildTree(this.inorder(this.root));
   }
 }
 

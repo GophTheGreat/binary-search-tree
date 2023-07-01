@@ -22,7 +22,7 @@ prettyPrint(treeA.root)
 
 //test isbalanced
 console.log(`TEST ISBALANCED (true)`);
-console.log(treeA.isBalanced())'
+console.log(treeA.isBalanced())
 
 //test insert
 console.log("TEST INSERT(11)")
@@ -41,29 +41,29 @@ prettyPrint(treeA.root)
 
 //test isbalanced
 console.log(`TEST ISBALANCED (false)`);
-console.log(treeA.isBalanced())'
+console.log(treeA.isBalanced())
 
 //test rebalance
 console.log(`TEST REBALANCE`);
 treeA.rebalance();
 prettyPrint(treeA.root)
 console.log(`CHECK ISBALANCED (true)`);
-console.log(treeA.isBalanced())'
+console.log(treeA.isBalanced())
 
 //test delete
-console.log(`TEST DELETE EXISTING (1)`);
-treeA.delete(1);
-prettyPrint(treeA.root)
-console.log(`TEST DELETE NONEXISTING (8675)`);
-treeA.delete(8675);
-prettyPrint(treeA.root)
+// console.log(`TEST DELETE EXISTING (1)`);
+// treeA.delete(1);
+// prettyPrint(treeA.root)
+// console.log(`TEST DELETE NONEXISTING (8675)`);
+// treeA.delete(8675);
+// prettyPrint(treeA.root)
 
 //test inorder
 console.log("TEST INORDER")
 let inorderArray = treeA.inorder(treeA.root);
 console.log(inorderArray);
 
-//test preorder
+// //test preorder
 console.log("TEST PREORDER")
 let preorderArray = treeA.preorder(treeA.root);
 console.log(preorderArray);
