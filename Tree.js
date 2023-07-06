@@ -81,42 +81,103 @@ class Tree {
     let prev = cur;
     let lastMove;
 
-    console.log(cur.data);
+
     //if tree is empty, return
     if (cur === null){
       return;
     }
 
     while(cur !== null){
+      console.log(cur.data);
       //store the previous node as a reference for when we have to stitch up the children
       prev = cur;
 
       //if value < cur.value, walk down the left subtree
-      console.log(`Comparing ${value} to ${cur.data}`)
+      //console.log(`Comparing ${value} to ${cur.data}`)
       if(value < cur.data){
-        if(cur.left !== null){
-          console.log(`Walking left`)
-          cur = cur.left;
-          lastMove = 'left'
-        }
+        console.log(`Walking left`)
+        cur = cur.left;
+        lastMove = 'left';
       }
 
       //if value > cur.data, walk down the right subree
       if(value > cur.data){
-        if(cur.right !== null){
-          console.log(`Walking right`)
-          cur = cur.right;
-          lastMove = 'right'
-        }
+        console.log(`Walking right`)
+        cur = cur.right;
+        lastMove = 'right';
       }
-      //if value is equal, take up the right subtree and replace cur.
-      //if no right subree, then take the left subtree
+
+      if(cur === null){
+        break;
+      }
+
+      //if value is equal, we have 3 cases
       if(value === cur.data){
-        if(cur.right !== null){
-          prev[lastMove] = cur.right;
+        //Case 1
+        //If the node is a leaf with no children,
+        //Just delete it
+        if(cur.left === null && cur.right === null){
+          prev[lastMove] = null;
+          return;
+        }
+
+        //Case 2
+        //If the node has 1 child
+        //Replace the node with the child
+        if((cur.left || cur.right ) && !(cur.left && cur.right)){
+          if(cur.left){prev[lastMove] = cur.left;}
+          else{prev[lastMOve = cur.right]}
+          return;
+        }
+
+        //Case 3
+        //If the node has 2 children
+        //Find the inorder successor, and use that to replace the node
+        //Successor will always be leftmost child of the right subtree 
+        else{
+          let successorParent = null;
+
+          //Find successor
+          let successor = cur.right;
+
+          while(successor.left !== null){
+            successorParent = successor;
+            successor = successor.left
+          }
+          
+          console.log(`cur is ${cur.data}`)
+          //console.log(`Successor parent is ${successorParent.data} and successor is ${successor.data}`)
+          //Replace the deleted node with the successor
+          cur.data = successor.data;
+          //Reallocate successor's children 
+          //If the successor has no parent, it is the current (target) node's child
+          //So just give the current node the successor's child
+          if(successorParent === null){
+            if(cur.left === null){
+              cur.left = successor.left;
+            }
+            else{
+              cur.right = successor.right;
+            }
+          }
+
+          //Else the successor has a parent
+          else{
+            console.log(`Successor parent ${successorParent}`)
+            if(successorParent.left === successor){
+              successorParent.left = successor.left;
+            }
+            else{
+              successorParent.right = successor.right;
+            }
+          }
+          console.log(`Deleted node ${value}`)
+          return;
         }
       }
     }
+    console.log(`No node of ${value} found`)
+    return false;
   }
 
   //searches for a value and returns the node or false;

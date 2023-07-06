@@ -51,12 +51,17 @@ console.log(`CHECK ISBALANCED (true)`);
 console.log(treeA.isBalanced())
 
 //test delete
-// console.log(`TEST DELETE EXISTING (1)`);
-// treeA.delete(1);
-// prettyPrint(treeA.root)
-// console.log(`TEST DELETE NONEXISTING (8675)`);
-// treeA.delete(8675);
-// prettyPrint(treeA.root)
+console.log(`TEST DELETE EXISTING (1)`);
+treeA.delete(1);
+prettyPrint(treeA.root)
+console.log(`TEST DELETE NONEXISTING (8675)`);
+treeA.delete(8675);
+prettyPrint(treeA.root)
+console.log(`TEST DELETE 3334 and 67`);
+treeA.delete(3334);
+prettyPrint(treeA.root)
+treeA.delete(67);
+prettyPrint(treeA.root)
 
 //test inorder
 console.log("TEST INORDER")
